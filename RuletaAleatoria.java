@@ -1,6 +1,10 @@
 import java.util.HashSet;
 import java.util.ArrayList;
 import java.util.Random;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.BufferedReader;
+import java.io.FileReader;
 /**
  * La clase RuletaAleatoria permite agregar nombres únicos a una lista y seleccionar
  * uno de ellos de forma aleatoria, simulando el comportamiento de una ruleta.
@@ -75,5 +79,63 @@ public class RuletaAleatoria
         }
     }
     
+    /**
+    * Guarda todos los nombres actuales de la ruleta en un archivo de texto.
+    * 
+    * Cada nombre se guarda en una línea separada en el archivo. Si el archivo ya existe,
+    * será sobrescrito con los nombres actuales.
+    * 
+    * El método recorre la lista de nombres y escribe cada uno en el archivo, en el mismo
+    * orden en que fueron agregados. Si ocurre algún error durante la escritura, se muestra
+    * un mensaje de error por consola.
+    * 
+    * @param nombreDeArchivo El nombre (o ruta relativa) del archivo donde se guardarán los nombres.
+    */
+    public void guardarEnArchivo(String nombreArchivo){
+        try {
+            FileWriter escritor = new FileWriter(nombreArchivo);
+            for(String nombre : nombres){
+                escritor.write(nombre + "\n");
+            }
+            escritor.close();
+            System.out.println("Lista guardada correctamente.");
+        } catch (IOException e) {
+            System.out.println("Error al guardar. " + e.getMessage());
+        }
+    }
+    
+    /**
+     * Carga nombres desde un archivo de texto y los agrega a la ruleta.
+     * 
+     * Cada línea del archivo debe contener un solo nombre. Los nombres duplicados
+     * (ignorando mayúsculas/minúsculas) serán descartados automáticamente.
+     * 
+     * El método recorre el archivo línea por línea, intentando agregar cada nombre
+     * mediante el método {@code agregarNombres(String nombre)}. Si un nombre ya
+     * estaba en la lista, se ignora silenciosamente.
+     * 
+     * Si el archivo no existe o ocurre un error de lectura, se muestra un mensaje
+     * de error por consola sin interrumpir la ejecución del programa.
+     * 
+     * @param nombreDeArchivo El nombre (o ruta relativa) del archivo a cargar.
+     */
+    public void cargarDesdeArchivo(String nombreDeArchivo){
+        try {
+            BufferedReader lector = new BufferedReader(new FileReader(nombreDeArchivo));
+                String linea;
+                while ((linea = lector.readLine()) != null){
+                    try {
+                        agregarNombres(linea);
+                        
+                    } catch (IllegalArgumentException e){
+                        //Si el nombre ya estaba, lo ignoramos
+                    }
+                }
+                lector.close();
+                System.out.println("Lista cargada con exito.");
+            } catch (IOException e) {
+                System.out.println("Error al cargar: "+ e.getMessage());
+            }
+    }
     
 }

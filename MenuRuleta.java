@@ -12,16 +12,13 @@ import java.util.Scanner;
  */
 public class MenuRuleta
 {
+    private RuletaAleatoria ruleta;
+    private Scanner lector;
+    
     /**
      * Constructor de la clase MenuRuleta
      * Inicializa una nueva instancia de RuletaAleatoria y el lector de entradas.
      */   
-    private RuletaAleatoria ruleta;
-    
-    private Scanner lector;
-    /**
-     * Constructor for objects of class MenuRuleta
-     */
     public MenuRuleta()
     {
        ruleta = new RuletaAleatoria();
@@ -32,18 +29,22 @@ public class MenuRuleta
      * Agregar un nombre
      * Mostrar todos los nombres ingresados
      * Girar la ruleta para seleccionar un nombre al  azar
+     * Guardar nombres en archivo
+     * Cargar nombres desde archivos
      * Salir del programa
      * 
      * El ciclo continúa hasta que el usuario decide salir.
      */
-    public void inciciarMenu(){
+    public void iniciarMenu(){
         boolean continuar = true;
         while (continuar){
             System.out.println("\n---Menú Ruleta ---");
             System.out.println("1. Agregar nombre");
             System.out.println("2. Mostrar nombres");
             System.out.println("3. Girar ruleta");
-            System.out.println("4. Salir");
+            System.out.println("4. Guardar En Archivo");
+            System.out.println("5. Cargar Desde Archivo");
+            System.out.println("6. Salir");
             System.out.println("Elige una opción: ");
             
             int opcion = lector.nextInt();
@@ -56,7 +57,7 @@ public class MenuRuleta
                    
                     try {
                         ruleta.agregarNombres(nombre);
-                        System.out.println("Nombre ingresado con exito");
+                        System.out.println("Nombre ingresado con exito.");
                     } catch (IllegalArgumentException e){
                         System.out.println("Error: " + e.getMessage());
                     }
@@ -72,6 +73,24 @@ public class MenuRuleta
                     }
                     break;
                 case 4:
+                    System.out.println("Ingrese un nombre para el archivo: ");
+                    String nombreA = lector.nextLine().trim();
+                    try {
+                        ruleta.guardarEnArchivo(nombreA);
+                    }catch (IllegalArgumentException e){
+                        System.out.println("Error: " + e.getMessage());
+                    }
+                    break;    
+                case 5:
+                    System.out.println("Ingrese el nombre del archivo:");
+                    String nombreAcargar = lector.nextLine().trim();
+                    try{
+                        ruleta.cargarDesdeArchivo(nombreAcargar);
+                    }catch (IllegalArgumentException e){
+                        System.out.println("Error: " + e.getMessage());
+                    }
+                    break;
+                case 6:
                     continuar= false;
                     break;
                 default:

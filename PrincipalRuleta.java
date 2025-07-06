@@ -1,8 +1,10 @@
 /**
- * Esta clase es la que arraca todo el programa.
- * Contiene el método main, que es el punto de entrada cuando se ejecuta el proyecto.
- * Se encarga de crear e iniciar el menú de la ruleta. 
+ * Clase principal del proyecto Ruleta.
  * 
+ * Esta clase contiene el método main, que es el punto de entrada del programa.
+ * Se encarga de crear e inciar el menú interactivo en consola.
+ * 
+ 
  * @author (Ivo Narváez) 
  * @version(1.0)
  */
@@ -10,6 +12,8 @@ public class PrincipalRuleta
 {
     /**
      * Método main que inicia la ejecución del programa.
+     * 
+     * @param args parámetro de línea de comando (no utlizados en este programa).
      */
     public static void main(String args[]){
         
