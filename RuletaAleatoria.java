@@ -43,8 +43,11 @@ public class RuletaAleatoria
      * @throws IllegalArgumentException si el nombre ya existe en la lista.
      */
     public boolean agregarNombres(String nombre){
+        if(nombre == null || nombre.trim().isEmpty()){
+            System.out.println("El nombre que ingreso es inválido");
+        }
         if(nombresUnicos.contains(nombre.toLowerCase())){
-            throw new IllegalArgumentException("Este nombre ya fue añadido con anterioridad");
+            throw new IllegalArgumentException("El nombre no puede estar vacío o solo contener espacios.");
         }
         nombres.add(nombre);
         nombresUnicos.add(nombre.toLowerCase());
@@ -136,6 +139,30 @@ public class RuletaAleatoria
             } catch (IOException e) {
                 System.out.println("Error al cargar: "+ e.getMessage());
             }
+    }
+    /**
+     * Elimina un nombre de la ruleta si existe
+     * 
+     * @param nombre el nombre a eliminar.
+     * @throws IllegalArgumentException si el nombre no existe o el parámetro es inválido.
+     */
+    
+    public void eliminarNombre(String nombre) {
+        if(nombre == null || nombre.trim().isEmpty()){
+            throw new IllegalArgumentException("Debe ingresar un nombre válido");
+        }
+        boolean eliminado = false;
+        for(int i = 0; i < nombres.size(); i++){
+            if(nombres.get(i).equalsIgnoreCase(nombre)){
+                nombres.remove(i);
+                nombresUnicos.remove(nombre.toLowerCase());
+                eliminado = true;
+                break;
+            }
+        }
+        if(!eliminado){
+            throw new IllegalArgumentException("El nombre no se encuentra en la ruleta.");
+        }
     }
     
 }

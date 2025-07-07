@@ -44,7 +44,8 @@ public class MenuRuleta
             System.out.println("3. Girar ruleta");
             System.out.println("4. Guardar En Archivo");
             System.out.println("5. Cargar Desde Archivo");
-            System.out.println("6. Salir");
+            System.out.println("6. Eliminar nombre de la lista");
+            System.out.println("7. Salir");
             System.out.println("Elige una opción: ");
             
             int opcion = lector.nextInt();
@@ -91,6 +92,22 @@ public class MenuRuleta
                     }
                     break;
                 case 6:
+                    System.out.println("Ingrese el nombre que desea eliminar:");
+                    String nombreAEliminar = lector.nextLine().trim();
+                    try{
+                        ruleta.eliminarNombre(nombreAEliminar);
+                        System.out.println("Nombre eliminado correctamente.");
+                        System.out.println("¿Desea guardar los cambios en el archivo? {s/n}: ");
+                        String respuestaG = lector.nextLine().trim();
+                        if(respuestaG.equals("s")){
+                            System.out.println("Ingrese el nombre del archivo para guardar: ");
+                            String archivoGuardar = lector.nextLine().trim();
+                            ruleta.guardarEnArchivo(archivoGuardar);
+                        }
+                    }catch (IllegalArgumentException e){
+                        System.out.println("Error: " + e.getMessage());
+                    }
+                case 7:
                     continuar= false;
                     break;
                 default:
