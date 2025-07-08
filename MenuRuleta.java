@@ -45,7 +45,10 @@ public class MenuRuleta
             System.out.println("4. Guardar En Archivo");
             System.out.println("5. Cargar Desde Archivo");
             System.out.println("6. Eliminar nombre de la lista");
-            System.out.println("7. Salir");
+            System.out.println("7. Eliminar lista");
+            System.out.println("8. Mostrar cantidad de nombres cargados");
+            System.out.println("9. Eliminar archivo");
+            System.out.println("10. Salir");
             System.out.println("Elige una opción: ");
             
             int opcion = lector.nextInt();
@@ -108,8 +111,41 @@ public class MenuRuleta
                         System.out.println("Error: " + e.getMessage());
                     }
                 case 7:
-                    continuar= false;
+                    ruleta.eliminarLista();
                     break;
+                case 8:
+                    int cantidad = ruleta.nombresCargados();
+                    System.out.println("Cantidad de nombres cargados: "+ cantidad);
+                    break;
+                case 9:
+                    System.out.println("¿Desea eliminar el archivo de texto? (S/N)");
+                    String respuestaE = lector.nextLine().trim().toLowerCase();
+                    if(respuestaE.equals("s")){
+                        System.out.println("Ingrese el nombre del archivo (con extensión):");
+                        String nombreArchivo = lector.nextLine().trim().toLowerCase();
+                        
+                        System.out.println("¿Estás seguro que querés eliminar el archivo " + nombreArchivo + "? (S/N)");
+                        String confirmacion = lector.nextLine().trim().toLowerCase();
+                        if(confirmacion.equals("s")){
+                             ruleta.eliminarArchivo(nombreArchivo);
+                        } else {
+                            System.out.println("Eliminación cancelada.");
+                        }
+                    } else {
+                        System.out.println("Accion cancelada.");
+                    }
+                    
+                    break;
+                case 10:
+                    System.out.println("¿Estás seguro que querés salir? (S/N)");
+                    String respuestaS = lector.nextLine().trim().toLowerCase();
+                    if(respuestaS.equals("s")){
+                    continuar= false;
+                    } else {
+                        System.out.println("Operacion cancelada. Volviendo al menú...");
+                    }
+                    break;
+                    
                 default:
                     System.out.println("Opción inválida");
             }     

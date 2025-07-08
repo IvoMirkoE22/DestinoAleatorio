@@ -5,6 +5,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.io.File;
 /**
  * La clase RuletaAleatoria permite agregar nombres únicos a una lista y seleccionar
  * uno de ellos de forma aleatoria, simulando el comportamiento de una ruleta.
@@ -163,6 +164,45 @@ public class RuletaAleatoria
         if(!eliminado){
             throw new IllegalArgumentException("El nombre no se encuentra en la ruleta.");
         }
+    }
+    /**
+     * Elimina el archivo que se guardo o que se desea abrir
+     * este archivo contiene la lista de personas o personajes
+     * @param nombreArchivo es el nombre el cual tiene el archivo que 
+     * se desea eliminar
+     */
+    public void eliminarArchivo(String nombreArchivo){
+        File archivo = new File(nombreArchivo);
+        if(archivo.exists()){
+            if(archivo.delete()){
+                System.out.println("Archivo eliminado correctamente.");
+            }else{
+                System.out.println("No se pudo eliminar el archivo.");
+            }
+        }else {
+            System.out.println("El archivo no existe.");
+        }
+    }
+    /**
+     * Elimina todos los nombres de la ruleta.
+     * nombres.clear() limpia todos los elementos de la lista
+     * nombresUnicos.clear() limpia también el conjunto de nombres únicos
+     * 
+     * @throws IllegalStateException
+     */
+    public void eliminarLista(){
+        if(nombres == null || nombres.isEmpty()){
+            throw new IllegalStateException("No puedes eliminar una lista vacia");
+        }
+        nombres.clear(); 
+        nombresUnicos.clear();
+    }
+    
+    /**
+     * Devuelve la cantidad de nombres actualmente captados en la ruleta.
+     */
+    public int nombresCargados(){
+        return nombres.size();
     }
     
 }
