@@ -70,12 +70,23 @@ public class MenuRuleta
                     ruleta.mostrarNombres();
                     break;
                 case 3:
-                    try {
-                    ruleta.girarRuleta();
-                    } catch (IllegalArgumentException e){
-                        System.out.println("Error: " + e.getMessage());
+                   boolean seguirGirando = true;
+                   while(seguirGirando){
+                        try {
+                             ruleta.girarRuleta();
+                        } catch (IllegalStateException e){
+                            System.out.println("Error: " + e.getMessage());
+                            break;
+                        }
+                        
+                    
+                    System.out.println("¿Querés girar de nuevo? (S/N)");
+                    String respuesta = lector.nextLine().trim().toLowerCase();
+                    if(!respuesta.equals("s")){
+                        seguirGirando = false;
                     }
-                    break;
+                  }
+                  break;
                 case 4:
                     System.out.println("Ingrese un nombre para el archivo: ");
                     String nombreA = lector.nextLine().trim();
@@ -137,6 +148,14 @@ public class MenuRuleta
                     
                     break;
                 case 10:
+                    System.out.println("¿Desea guardar los nombres antes de salir? (S/N)");
+                    String respuestaG = lector.nextLine().trim().toLowerCase();
+                    if(respuestaG.equals("s")){
+                        System.out.println("Ingrese el nombre del archivo donde desea guardar:");
+                        String archivoGuardar = lector.nextLine().trim();
+                        ruleta.guardarEnArchivo(archivoGuardar);
+                    }
+                    
                     System.out.println("¿Estás seguro que querés salir? (S/N)");
                     String respuestaS = lector.nextLine().trim().toLowerCase();
                     if(respuestaS.equals("s")){

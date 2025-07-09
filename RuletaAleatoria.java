@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.File;
+import java.util.Scanner;
+
 /**
  * La clase RuletaAleatoria permite agregar nombres únicos a una lista y seleccionar
  * uno de ellos de forma aleatoria, simulando el comportamiento de una ruleta.
@@ -86,8 +88,9 @@ public class RuletaAleatoria
     /**
     * Guarda todos los nombres actuales de la ruleta en un archivo de texto.
     * 
-    * Cada nombre se guarda en una línea separada en el archivo. Si el archivo ya existe,
-    * será sobrescrito con los nombres actuales.
+    * Cada nombre se guarda en una línea separada en el archivo.
+    * Evita sobrescribir archivos sin aviso antes de guardar, verifica
+    * si el archivo ya existe y pide confirmación.
     * 
     * El método recorre la lista de nombres y escribe cada uno en el archivo, en el mismo
     * orden en que fueron agregados. Si ocurre algún error durante la escritura, se muestra
@@ -97,6 +100,16 @@ public class RuletaAleatoria
     */
     public void guardarEnArchivo(String nombreArchivo){
         try {
+            File archivo = new File(nombreArchivo);
+            if (archivo.exists()){
+                Scanner confirmacion = new Scanner(System.in);
+                System.out.println("El archivo ya existe.¿Desea sobreescribirlo? (S/N)");
+                String reśpuesta = confirmacion.nextLine().trim().toLowerCase();
+                if (!reśpuesta.equals("s")){
+                    System.out.println("Operación cancelada.No se guardaron los datos.");
+                    return;
+                }
+            }
             FileWriter escritor = new FileWriter(nombreArchivo);
             for(String nombre : nombres){
                 escritor.write(nombre + "\n");
