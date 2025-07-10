@@ -86,74 +86,15 @@ public class RuletaAleatoria
     }
     
     /**
-    * Guarda todos los nombres actuales de la ruleta en un archivo de texto.
-    * 
-    * Cada nombre se guarda en una línea separada en el archivo.
-    * Evita sobrescribir archivos sin aviso antes de guardar, verifica
-    * si el archivo ya existe y pide confirmación.
-    * 
-    * El método recorre la lista de nombres y escribe cada uno en el archivo, en el mismo
-    * orden en que fueron agregados. Si ocurre algún error durante la escritura, se muestra
-    * un mensaje de error por consola.
-    * 
-    * @param nombreDeArchivo El nombre (o ruta relativa) del archivo donde se guardarán los nombres.
-    */
-    public void guardarEnArchivo(String nombreArchivo){
-        try {
-            File archivo = new File(nombreArchivo);
-            if (archivo.exists()){
-                Scanner confirmacion = new Scanner(System.in);
-                System.out.println("El archivo ya existe.¿Desea sobreescribirlo? (S/N)");
-                String reśpuesta = confirmacion.nextLine().trim().toLowerCase();
-                if (!reśpuesta.equals("s")){
-                    System.out.println("Operación cancelada.No se guardaron los datos.");
-                    return;
-                }
-            }
-            FileWriter escritor = new FileWriter(nombreArchivo);
-            for(String nombre : nombres){
-                escritor.write(nombre + "\n");
-            }
-            escritor.close();
-            System.out.println("Lista guardada correctamente.");
-        } catch (IOException e) {
-            System.out.println("Error al guardar. " + e.getMessage());
-        }
+     * Devuelve la lista actual de nombres cargados en la ruleta.
+     * 
+     * Esta lista puede usarse para mostrar, guardar o manipular desde otras clases
+     * como MenuRuleta o ArchivoRuleta.
+     */
+    public ArrayList<String> getListaDeNombres() {
+        return nombres;
     }
     
-    /**
-     * Carga nombres desde un archivo de texto y los agrega a la ruleta.
-     * 
-     * Cada línea del archivo debe contener un solo nombre. Los nombres duplicados
-     * (ignorando mayúsculas/minúsculas) serán descartados automáticamente.
-     * 
-     * El método recorre el archivo línea por línea, intentando agregar cada nombre
-     * mediante el método {@code agregarNombres(String nombre)}. Si un nombre ya
-     * estaba en la lista, se ignora silenciosamente.
-     * 
-     * Si el archivo no existe o ocurre un error de lectura, se muestra un mensaje
-     * de error por consola sin interrumpir la ejecución del programa.
-     * 
-     * @param nombreDeArchivo El nombre (o ruta relativa) del archivo a cargar.
-     */
-    public void cargarDesdeArchivo(String nombreDeArchivo){
-        try {
-            BufferedReader lector = new BufferedReader(new FileReader(nombreDeArchivo));
-                String linea;
-                while ((linea = lector.readLine()) != null){
-                    try {
-                        agregarNombres(linea);
-                        
-                    } catch (IllegalArgumentException e){
-                        //Si el nombre ya estaba, lo ignoramos
-                    }
-                }
-                lector.close();
-                System.out.println("Lista cargada con exito.");
-            } catch (IOException e) {
-                System.out.println("Error al cargar: "+ e.getMessage());
-            }
-    }
     /**
      * Elimina un nombre de la ruleta si existe
      * 
@@ -178,24 +119,7 @@ public class RuletaAleatoria
             throw new IllegalArgumentException("El nombre no se encuentra en la ruleta.");
         }
     }
-    /**
-     * Elimina el archivo que se guardo o que se desea abrir
-     * este archivo contiene la lista de personas o personajes
-     * @param nombreArchivo es el nombre el cual tiene el archivo que 
-     * se desea eliminar
-     */
-    public void eliminarArchivo(String nombreArchivo){
-        File archivo = new File(nombreArchivo);
-        if(archivo.exists()){
-            if(archivo.delete()){
-                System.out.println("Archivo eliminado correctamente.");
-            }else{
-                System.out.println("No se pudo eliminar el archivo.");
-            }
-        }else {
-            System.out.println("El archivo no existe.");
-        }
-    }
+    
     /**
      * Elimina todos los nombres de la ruleta.
      * nombres.clear() limpia todos los elementos de la lista

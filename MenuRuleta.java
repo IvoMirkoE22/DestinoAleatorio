@@ -1,4 +1,6 @@
 import java.util.Scanner;
+import java.util.ArrayList;
+
 /**
  * La clase MenuRuleta Maneja la interacción con el usuario mediante un menú
  * en consola. Permite agregar nombres, mostrar los nombres actuales y girar 
@@ -89,9 +91,9 @@ public class MenuRuleta
                   break;
                 case 4:
                     System.out.println("Ingrese un nombre para el archivo: ");
-                    String nombreA = lector.nextLine().trim();
-                    try {
-                        ruleta.guardarEnArchivo(nombreA);
+                    String nombreArchivo = lector.nextLine().trim();
+                    try{
+                    ArchivoRuleta.guardarEnArchivo(ruleta.getListaDeNombres(),nombreArchivo);
                     }catch (IllegalArgumentException e){
                         System.out.println("Error: " + e.getMessage());
                     }
@@ -99,11 +101,21 @@ public class MenuRuleta
                 case 5:
                     System.out.println("Ingrese el nombre del archivo:");
                     String nombreAcargar = lector.nextLine().trim();
+                    
                     try{
-                        ruleta.cargarDesdeArchivo(nombreAcargar);
-                    }catch (IllegalArgumentException e){
+                        ArrayList<String> cargados = ArchivoRuleta.cargarDesdeArchivo(nombreAcargar);
+                        for (String nombresC: cargados) {
+                          try{
+                            ruleta.agregarNombres(nombresC);
+                          }catch (IllegalArgumentException e){
+                            //Ignorar duplicados
+                          }
+                        } 
+                        System.out.println("Nombres cargados correctamente."); 
+                    } catch (IllegalArgumentException e ) {
                         System.out.println("Error: " + e.getMessage());
                     }
+                    
                     break;
                 case 6:
                     System.out.println("Ingrese el nombre que desea eliminar:");
@@ -116,11 +128,12 @@ public class MenuRuleta
                         if(respuestaG.equals("s")){
                             System.out.println("Ingrese el nombre del archivo para guardar: ");
                             String archivoGuardar = lector.nextLine().trim();
-                            ruleta.guardarEnArchivo(archivoGuardar);
+                            ArchivoRuleta.guardarEnArchivo(ruleta.getListaDeNombres(),archivoGuardar);
                         }
                     }catch (IllegalArgumentException e){
                         System.out.println("Error: " + e.getMessage());
                     }
+                    break;
                 case 7:
                     ruleta.eliminarLista();
                     break;
@@ -133,12 +146,12 @@ public class MenuRuleta
                     String respuestaE = lector.nextLine().trim().toLowerCase();
                     if(respuestaE.equals("s")){
                         System.out.println("Ingrese el nombre del archivo (con extensión):");
-                        String nombreArchivo = lector.nextLine().trim().toLowerCase();
+                        String nombresArchivo = lector.nextLine().trim().toLowerCase();
                         
-                        System.out.println("¿Estás seguro que querés eliminar el archivo " + nombreArchivo + "? (S/N)");
+                        System.out.println("¿Estás seguro que querés eliminar el archivo " + nombresArchivo + "? (S/N)");
                         String confirmacion = lector.nextLine().trim().toLowerCase();
                         if(confirmacion.equals("s")){
-                             ruleta.eliminarArchivo(nombreArchivo);
+                             ArchivoRuleta.eliminarArchivo(nombresArchivo);
                         } else {
                             System.out.println("Eliminación cancelada.");
                         }
@@ -153,7 +166,7 @@ public class MenuRuleta
                     if(respuestaG.equals("s")){
                         System.out.println("Ingrese el nombre del archivo donde desea guardar:");
                         String archivoGuardar = lector.nextLine().trim();
-                        ruleta.guardarEnArchivo(archivoGuardar);
+                        ArchivoRuleta.guardarEnArchivo(ruleta.getListaDeNombres(),archivoGuardar);
                     }
                     
                     System.out.println("¿Estás seguro que querés salir? (S/N)");
