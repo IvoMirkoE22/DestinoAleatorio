@@ -69,10 +69,10 @@ El proyecto está dividido en **clases con responsabilidades claras**, siguiendo
 
 ## 🖼️ Imágenes adicionales del código
 
-![Imagen 1](ImagenesDelCodigo/Imagen_2.jpg)  
-![Imagen 2](ImagenesDelCodigo/Imagen_3.jpg)  
-![Imagen 3](ImagenesDelCodigo/Imagen_4.jpg)  
-![Imagen 4](ImagenesDelCodigo/Imagen_5.jpg)  
+![Imagen 1](MultimediaDestinoAleatorio/ImagenesDelCodigo/Imagen2.jpg)  
+![Imagen 2](MultimediaDestinoAleatorio/ImagenesDelCodigo/Imagen3.jpg)  
+![Imagen 3](MultimediaDestinoAleatorio/ImagenesDelCodigo/Imagen4.jpg)  
+![Imagen 4](MultimediaDestinoAleatorio/ImagenesDelCodigo/Imagen5.jpg)  
 
 ---
 
