@@ -10,7 +10,7 @@ Permite cargar nombres, hacer sorteos, guardar listas en archivos `.txt` y vincu
 > _Interfaz de consola y funcionamiento básico_
 
 ![Diagrama de Clases](MultimediaDestinoAleatorio/DiagramaDeClases/Imagen.jpg)  
-![Vista previa desde consola](MultimediaDestinoAleatorio/VistaPreviaDesdeConsola/Imagen2.jpg)  
+![Vista previa desde consola](MultimediaDestinoAleatorio/VistaPreviaDesdeConsola/ImagenC.jpg)  
 
 ---
 
